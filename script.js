@@ -33,6 +33,12 @@ function updateLastUserActivityTime() {
     }, 1000);
   });
 }
+function deletePost() {
+  return new Promise((resolve, reject) => {
+    posts.pop();
+    resolve(posts);
+  });
+}
 updateLastUserActivityTime().then((res) => {
   console.log("Before creating post 4, user lastActivityTime = ", res);
   Promise.all([
@@ -46,6 +52,7 @@ updateLastUserActivityTime().then((res) => {
 
       console.log("posts >>", createdPost);
       console.log("User last activity time", afterPost.getTime());
+      deletePost().then((res) => console.log(res));
     })
     .catch((err) => console.log(err));
 });
